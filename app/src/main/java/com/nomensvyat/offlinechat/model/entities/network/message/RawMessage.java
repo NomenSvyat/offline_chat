@@ -11,19 +11,23 @@ public abstract class RawMessage {
 
     public abstract Builder toBuilder();
 
-    public abstract long getDatetime();
-
     public abstract long getId();
+
+    public abstract long getRemoteId();
+
+    public abstract long getRoomId();
 
     public abstract String getMessage();
 
-    public abstract long getRoomId();
+    public abstract long getDatetime();
 
     public abstract String getType();
 
     @AutoValue.Builder
     public abstract static class Builder {
         public abstract Builder id(long id);
+
+        public abstract Builder remoteId(long remoteId);
 
         public abstract Builder roomId(long id);
 
