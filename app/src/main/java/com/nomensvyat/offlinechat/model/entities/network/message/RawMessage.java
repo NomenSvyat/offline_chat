@@ -1,39 +1,39 @@
 package com.nomensvyat.offlinechat.model.entities.network.message;
 
-public class RawMessage {
-    private long id;
-    private long roomId;
-    private long senderId;
-    private String message;
-    private long dateTime;
-    private String type;
-    private String status;
+import com.google.auto.value.AutoValue;
 
-    public RawMessage() {
+@AutoValue
+public abstract class RawMessage {
+
+    public static Builder builder() {
+        return new AutoValue_RawMessage.Builder();
     }
 
-    public long getDatetime() {
-        return dateTime;
-    }
+    public abstract Builder toBuilder();
 
-    public long getId() {
-        return id;
-    }
+    public abstract long getDatetime();
 
-    public String getMessage() {
-        return message;
-    }
+    public abstract long getId();
 
-    public long getRoomId() {
-        return roomId;
-    }
+    public abstract String getMessage();
 
-    public long getSenderId() {
-        return senderId;
-    }
+    public abstract long getRoomId();
 
-    public String getType() {
-        return type;
+    public abstract String getType();
+
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder id(long id);
+
+        public abstract Builder roomId(long id);
+
+        public abstract Builder message(String message);
+
+        public abstract Builder datetime(long dateTime);
+
+        public abstract Builder type(String type);
+
+        public abstract RawMessage build();
     }
 
 }
