@@ -3,6 +3,7 @@ package com.nomensvyat.offlinechat.model.services.message;
 import com.nomensvyat.offlinechat.di.Local;
 import com.nomensvyat.offlinechat.di.Remote;
 import com.nomensvyat.offlinechat.di.application.PerApplication;
+import com.nomensvyat.offlinechat.model.entities.Message;
 import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
 import com.nomensvyat.offlinechat.model.repositories.message.MessageRepository;
 
@@ -17,7 +18,7 @@ public class MessageService {
 
     private final MessageRepository localMessageRepository;
     private final MessageRepository remoteMessageRepository;
-    private PublishSubject<RawMessage> newMessageSubject = PublishSubject.create();
+    private PublishSubject<Message> newMessageSubject = PublishSubject.create();
 
     @Inject
     public MessageService(@Local MessageRepository localMessageRepository,
@@ -31,11 +32,11 @@ public class MessageService {
                 .subscribe(newMessageSubject::onNext);
     }
 
-    public Observable<RawMessage> observeNewMessages() {
+    public Observable<Message> observeNewMessages() {
         return newMessageSubject;
     }
 
-    public Single<RawMessage> sendMessage(RawMessage rawMessage) {
+    public Single<Message> sendMessage(RawMessage rawMessage) {
         //save unsend message
         return localMessageRepository.saveMessage(rawMessage)
                 //send message

@@ -1,5 +1,6 @@
 package com.nomensvyat.offlinechat.model.services.message;
 
+import com.nomensvyat.offlinechat.model.entities.Message;
 import com.nomensvyat.offlinechat.model.entities.network.message.MessageTypes;
 import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
 import com.nomensvyat.offlinechat.model.repositories.message.FakeMessageRepository;
@@ -25,7 +26,7 @@ public class MessageServiceTest {
                 .type(MessageTypes.IN)
                 .build();
 
-        AssertableSubscriber<RawMessage> test = messageService.observeNewMessages()
+        AssertableSubscriber<Message> test = messageService.observeNewMessages()
                 .test();
 
         messageService.onNewMessage(rawMessage);
