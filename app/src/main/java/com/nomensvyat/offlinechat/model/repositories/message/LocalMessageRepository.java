@@ -37,6 +37,7 @@ public class LocalMessageRepository implements MessageRepository {
 
     @Override
     public Single<List<RawMessage>> getMessages(long roomId) {
+        // TODO: 23.01.2017 rewrite using query
         return getAllMessages()
                 .observeOn(Schedulers.computation())
                 .flatMap(Observable::from)
