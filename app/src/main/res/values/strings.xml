@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Offline chat</string>
+    <string name="message_input_hint">Enter your message here</string>
 </resources>
