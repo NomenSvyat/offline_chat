@@ -10,6 +10,7 @@ dependencies {
 
     def supportVersion = '25.1.0'
     compile "com.android.support:appcompat-v7:$supportVersion"
+    compile "com.android.support:recyclerview-v7:$supportVersion"
 
     def mosbyVersion = '2.0.1'
     compile "com.hannesdorfmann.mosby:mvp:$mosbyVersion"
