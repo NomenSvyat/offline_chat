@@ -1,4 +1,4 @@
-package com.nomensvyat.offlinechat.presentation.presenters;
+package com.nomensvyat.offlinechat.presentation.base;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
