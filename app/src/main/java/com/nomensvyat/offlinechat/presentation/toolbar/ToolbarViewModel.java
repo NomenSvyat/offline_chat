@@ -1,4 +1,4 @@
-package com.nomensvyat.offlinechat.presentation.viewmodels.toolbar;
+package com.nomensvyat.offlinechat.presentation.toolbar;
 
 public interface ToolbarViewModel {
     String getToolbarTitle();

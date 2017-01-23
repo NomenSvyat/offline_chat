@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.nomensvyat.offlinechat.presentation.viewmodels.toolbar.ToolbarViewModel"/>
+            type="com.nomensvyat.offlinechat.presentation.toolbar.ToolbarViewModel"/>
     </data>
 
     <android.support.v7.widget.Toolbar
