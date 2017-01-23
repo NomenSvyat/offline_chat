@@ -2,6 +2,7 @@ package com.nomensvyat.offlinechat.di.activity;
 
 import android.app.Activity;
 
+import com.nomensvyat.offlinechat.model.services.message.MessageService;
 import com.nomensvyat.offlinechat.presentation.chatmessaging.ChatMessagingPresenter;
 
 import dagger.Module;
@@ -17,7 +18,7 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
-    ChatMessagingPresenter providesChatMessagingPresenter() {
-        return new ChatMessagingPresenter();
+    ChatMessagingPresenter providesChatMessagingPresenter(MessageService messageService) {
+        return new ChatMessagingPresenter(messageService);
     }
 }

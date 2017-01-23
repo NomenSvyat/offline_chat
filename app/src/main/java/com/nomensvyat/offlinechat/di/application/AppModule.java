@@ -1,6 +1,7 @@
 package com.nomensvyat.offlinechat.di.application;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.nomensvyat.offlinechat.di.Local;
 import com.nomensvyat.offlinechat.di.Remote;
@@ -18,6 +19,11 @@ public class AppModule {
 
     public AppModule(Application application) {
         this.application = application;
+    }
+
+    @Provides
+    Context provideContext() {
+        return application;
     }
 
     @Provides
