@@ -1,28 +1,36 @@
 package com.nomensvyat.offlinechat.model.entities;
 
-public interface Message {
-    long getId();
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-    long getRemoteId();
+public interface Message {
+    @Nullable
+    Long getId();
+
+    @Nullable
+    Long getRemoteId();
 
     long getRoomId();
 
+    @NonNull
     String getMessage();
 
-    long getDatetime();
+    @Nullable
+    Long getDatetime();
 
+    @NonNull
     String getType();
 
     public interface Builder<T extends Message> {
-        Builder<T> id(long id);
+        Builder<T> id(Long id);
 
-        Builder<T> remoteId(long remoteId);
+        Builder<T> remoteId(Long remoteId);
 
         Builder<T> roomId(long id);
 
-        Builder<T> message(String message);
+        Builder<T> message(@NonNull String message);
 
-        Builder<T> datetime(long dateTime);
+        Builder<T> datetime(Long dateTime);
 
         Builder<T> type(String type);
 

@@ -1,5 +1,7 @@
 package com.nomensvyat.offlinechat.model.entities.persistent;
 
+import android.support.annotation.NonNull;
+
 import com.nomensvyat.offlinechat.model.entities.Message;
 
 import org.greenrobot.greendao.annotation.Entity;
@@ -9,15 +11,15 @@ import org.greenrobot.greendao.annotation.Id;
 @Entity
 public class PersistentMessage implements Message {
     @Id(autoincrement = true)
-    private long id;
+    private Long id;
     private long remoteId;
     private long datetime;
     private long roomId;
     private String message;
     private String type;
 
-    @Generated(hash = 1539568952)
-    public PersistentMessage(long id, long remoteId, long datetime, long roomId,
+    @Generated(hash = 536631362)
+    public PersistentMessage(Long id, long remoteId, long datetime, long roomId,
             String message, String type) {
         this.id = id;
         this.remoteId = remoteId;
@@ -36,16 +38,12 @@ public class PersistentMessage implements Message {
     }
 
     @Override
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     @Override
-    public long getRemoteId() {
+    public Long getRemoteId() {
         return this.remoteId;
     }
 
@@ -68,7 +66,7 @@ public class PersistentMessage implements Message {
     }
 
     @Override
-    public long getDatetime() {
+    public Long getDatetime() {
         return this.datetime;
     }
 
@@ -89,6 +87,14 @@ public class PersistentMessage implements Message {
         this.message = message;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public static class Builder implements Message.Builder<PersistentMessage> {
         private PersistentMessage persistentMessage;
 
@@ -97,13 +103,13 @@ public class PersistentMessage implements Message {
         }
 
         @Override
-        public Builder id(long id) {
+        public Builder id(Long id) {
             persistentMessage.setId(id);
             return this;
         }
 
         @Override
-        public Builder remoteId(long remoteId) {
+        public Builder remoteId(Long remoteId) {
             persistentMessage.setRemoteId(remoteId);
             return this;
         }
@@ -115,13 +121,13 @@ public class PersistentMessage implements Message {
         }
 
         @Override
-        public Builder message(String message) {
+        public Builder message(@NonNull String message) {
             persistentMessage.setMessage(message);
             return this;
         }
 
         @Override
-        public Builder datetime(long dateTime) {
+        public Builder datetime(Long dateTime) {
             persistentMessage.setDatetime(dateTime);
             return this;
         }

@@ -1,5 +1,7 @@
 package com.nomensvyat.offlinechat.model.entities.network.message;
 
+import android.support.annotation.NonNull;
+
 import com.google.auto.value.AutoValue;
 import com.nomensvyat.offlinechat.model.entities.Message;
 
@@ -15,19 +17,19 @@ public abstract class RawMessage implements Message {
     @AutoValue.Builder
     public abstract static class Builder implements Message.Builder<RawMessage> {
         @Override
-        public abstract Builder id(long id);
+        public abstract Builder id(Long id);
 
         @Override
-        public abstract Builder remoteId(long remoteId);
+        public abstract Builder remoteId(Long remoteId);
 
         @Override
         public abstract Builder roomId(long id);
 
         @Override
-        public abstract Builder message(String message);
+        public abstract Builder message(@NonNull String message);
 
         @Override
-        public abstract Builder datetime(long dateTime);
+        public abstract Builder datetime(Long dateTime);
 
         @Override
         public abstract Builder type(String type);
