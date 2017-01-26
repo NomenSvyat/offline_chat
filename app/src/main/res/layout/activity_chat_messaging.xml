@@ -23,6 +23,7 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/inputLayout"
             android:layout_below="@+id/toolbarLayout"
+            android:background="@color/chat_background"
             android:focusable="true"
             android:focusableInTouchMode="true"/>
 

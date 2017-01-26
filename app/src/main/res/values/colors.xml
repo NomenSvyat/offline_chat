@@ -11,4 +11,5 @@
     <color name="toolbar_text">#FFFFFF</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
+    <color name="chat_background">#bcf7e9</color>
 </resources>
