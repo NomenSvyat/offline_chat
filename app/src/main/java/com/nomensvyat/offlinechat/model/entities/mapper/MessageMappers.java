@@ -3,6 +3,7 @@ package com.nomensvyat.offlinechat.model.entities.mapper;
 import com.nomensvyat.offlinechat.model.entities.Message;
 import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
 import com.nomensvyat.offlinechat.model.entities.persistent.PersistentMessage;
+import com.nomensvyat.offlinechat.utils.Provider;
 
 public class MessageMappers {
 
@@ -27,32 +28,47 @@ public class MessageMappers {
     }
 
     private abstract static class MessageMapper<T extends Message> implements Mapper<Message, T> {
-        private final Message.Builder<T> builder;
+        private final Provider<Message.Builder<T>> builderProvider;
 
-        private MessageMapper(Message.Builder<T> builder) {
-            this.builder = builder;
+        private MessageMapper(Provider<Message.Builder<T>> builderProvider) {
+            this.builderProvider = builderProvider;
         }
 
         @Override
         public T map(Message source) {
-            return builder
-                    .id(source.getId())
-                    .remoteId(source.getRemoteId())
-                    .roomId(source.getRoomId())
-                    .datetime(source.getDatetime())
-                    .build();
+            Message.Builder<T> builder = builderProvider.provide();
+
+            //coping required fields
+            builder.roomId(source.getRoomId())
+                    .message(source.getMessage())
+                    .type(source.getType());
+
+            //nullable fields
+            if (source.getId() != null) {
+                builder.id(source.getId());
+            }
+
+            if (source.getRemoteId() != null) {
+                builder.remoteId(source.getRemoteId());
+            }
+
+            if (source.getDatetime() != null) {
+                builder.datetime(source.getDatetime());
+            }
+
+            return builder.build();
         }
     }
 
     private static class ToRawMessageMapper extends MessageMapper<RawMessage> {
         private ToRawMessageMapper() {
-            super(RawMessage.builder());
+            super(RawMessage::builder);
         }
     }
 
     private static class ToPersistentMapper extends MessageMapper<PersistentMessage> {
         private ToPersistentMapper() {
-            super(PersistentMessage.builder());
+            super(PersistentMessage::builder);
         }
     }
 
