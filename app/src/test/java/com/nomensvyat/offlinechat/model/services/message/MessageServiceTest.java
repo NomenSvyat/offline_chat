@@ -19,7 +19,7 @@ public class MessageServiceTest {
                                                            new FakeMessageRepository());
 
         RawMessage rawMessage = RawMessage.builder()
-                .id(1)
+                .id(1L)
                 .message("some message")
                 .datetime(Calendar.getInstance().getTimeInMillis())
                 .roomId(1)

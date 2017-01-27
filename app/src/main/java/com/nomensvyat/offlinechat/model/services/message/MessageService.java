@@ -1,11 +1,16 @@
 package com.nomensvyat.offlinechat.model.services.message;
 
+import android.support.annotation.NonNull;
+
 import com.nomensvyat.offlinechat.di.Local;
 import com.nomensvyat.offlinechat.di.Remote;
 import com.nomensvyat.offlinechat.di.application.PerApplication;
 import com.nomensvyat.offlinechat.model.entities.Message;
 import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
 import com.nomensvyat.offlinechat.model.repositories.message.MessageRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -43,5 +48,30 @@ public class MessageService {
                 .flatMap(remoteMessageRepository::saveMessage)
                 //resave message with server generated id
                 .flatMap(localMessageRepository::saveMessage);
+    }
+
+    public Observable<List<Message>> getAllMessages(final long roomId) {
+        return getMessagesFromLocal(roomId)
+                // TODO: 27.01.2017 wrong here. it will duplicate notification from database
+                .concatWith(
+                        fetchAndSave(roomId)
+                                .flatMap(any -> getMessagesFromLocal(roomId))
+                );
+    }
+
+    @NonNull
+    private Single<List<Message>> getMessagesFromLocal(long roomId) {
+        return localMessageRepository.getMessages(roomId)
+                .map(this::toListOfMessages);
+    }
+
+    @NonNull
+    private Single<List<RawMessage>> fetchAndSave(long roomId) {
+        return remoteMessageRepository.getMessages(roomId)
+                .flatMap(localMessageRepository::saveMessages);
+    }
+
+    private List<Message> toListOfMessages(List<? extends Message> source) {
+        return new ArrayList<>(source);
     }
 }
