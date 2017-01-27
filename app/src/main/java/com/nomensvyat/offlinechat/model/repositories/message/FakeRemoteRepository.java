@@ -4,6 +4,7 @@ import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Single;
@@ -13,7 +14,8 @@ public class FakeRemoteRepository implements MessageRepository {
 
     @Override
     public Single<List<RawMessage>> getMessages() {
-        return Single.just(messageDb);
+        return Single.just(messageDb)
+                .delay(2, TimeUnit.SECONDS);
     }
 
     @Override
