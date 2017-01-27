@@ -12,4 +12,6 @@ public interface MessageRepository {
     Single<List<RawMessage>> getMessages(long roomId);
 
     Single<RawMessage> saveMessage(RawMessage rawMessage);
+
+    Single<List<RawMessage>> saveMessages(List<RawMessage> rawMessages);
 }

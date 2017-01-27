@@ -32,4 +32,9 @@ public class FakeMessageRepository implements MessageRepository {
     public Single<RawMessage> saveMessage(RawMessage rawMessage) {
         return Single.just(rawMessage);
     }
+
+    @Override
+    public Single<List<RawMessage>> saveMessages(List<RawMessage> rawMessage) {
+        return Single.just(rawMessage);
+    }
 }

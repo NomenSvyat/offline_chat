@@ -8,9 +8,10 @@ import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Single;
+import rx.schedulers.Schedulers;
 
 public class FakeRemoteRepository implements MessageRepository {
-    private ArrayList<RawMessage> messageDb = new ArrayList<>();
+    private List<RawMessage> messageDb = new ArrayList<>();
 
     @Override
     public Single<List<RawMessage>> getMessages() {
@@ -20,7 +21,7 @@ public class FakeRemoteRepository implements MessageRepository {
 
     @Override
     public Single<List<RawMessage>> getMessages(long roomId) {
-        return Single.just(messageDb)
+        return getMessages()
                 .toObservable()
                 .flatMap(Observable::from)
                 .filter(rawMessage -> rawMessage.getRoomId() == roomId)
@@ -39,7 +40,18 @@ public class FakeRemoteRepository implements MessageRepository {
         return Single.just(rawMessage);
     }
 
+    @Override
+    public Single<List<RawMessage>> saveMessages(List<RawMessage> rawMessage) {
+        return Observable.from(rawMessage)
+                .observeOn(Schedulers.computation())
+                .concatMapDelayError(rawMessage1 -> saveMessage(rawMessage1).toObservable())
+                .toList()
+                .toSingle();
+    }
+
     private long getLastId() {
+        //messages save here will always have remoteId set
+        //noinspection ConstantConditions
         return messageDb.size() == 0 ? 1 : messageDb.get(messageDb.size() - 1).getRemoteId();
     }
 }

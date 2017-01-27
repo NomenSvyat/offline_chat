@@ -1,7 +1,5 @@
 package com.nomensvyat.offlinechat.model.repositories.message;
 
-import com.nomensvyat.offlinechat.model.entities.Message;
-import com.nomensvyat.offlinechat.model.entities.mapper.Mapper;
 import com.nomensvyat.offlinechat.model.entities.mapper.MessageMappers;
 import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
 import com.nomensvyat.offlinechat.model.entities.persistent.PersistentMessage;
@@ -50,12 +48,30 @@ public class LocalMessageRepository implements MessageRepository {
 
     @Override
     public Single<RawMessage> saveMessage(RawMessage rawMessage) {
-        Mapper<Message, PersistentMessage> toPersistentMessageMapper = MessageMappers.createToPersistentMessageMapper();
-        PersistentMessage persistentMessage = toPersistentMessageMapper.map(rawMessage);
         return persistentMessageDao.rx()
-                .save(persistentMessage)
+                .save(toPersistentMessage(rawMessage))
                 .first()
                 .map(MessageMappers.createToRawMessageMapper()::map)
+                .toSingle();
+    }
+
+    private PersistentMessage toPersistentMessage(RawMessage rawMessage) {
+        return MessageMappers.createToPersistentMessageMapper()
+                .map(rawMessage);
+    }
+
+    @Override
+    public Single<List<RawMessage>> saveMessages(List<RawMessage> rawMessages) {
+        return Observable.from(rawMessages)
+                .observeOn(Schedulers.computation())
+                .map(MessageMappers.createToPersistentMessageMapper()::map)
+                .toList()
+                .flatMap(persistentMessages -> persistentMessageDao.rx()
+                        .saveInTx(persistentMessages))
+                .flatMap(Observable::from)
+                .map(MessageMappers.createToRawMessageMapper()::map)
+                .toList()
+                .first()
                 .toSingle();
     }
 }
