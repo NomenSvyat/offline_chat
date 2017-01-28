@@ -12,6 +12,7 @@ import com.nomensvyat.offlinechat.model.repositories.message.MessageRepository;
 import com.nomensvyat.offlinechat.notification.OnNewMessageListener;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
@@ -27,12 +28,15 @@ public class ChatBotJob extends Job {
             OnNewMessageListener onNewMessageListener) {
         this.fakeRemoteRepository = fakeRemoteRepository;
         this.onNewMessageListener = onNewMessageListener;
+
         calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
     }
 
     public static void schedule() {
         new JobRequest.Builder(TAG)
                 .setPeriodic(TimeUnit.SECONDS.toMillis(60))
+                .setUpdateCurrent(true)
                 .build()
                 .schedule();
     }
