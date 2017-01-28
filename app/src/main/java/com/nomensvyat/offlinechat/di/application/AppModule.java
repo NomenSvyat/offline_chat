@@ -9,6 +9,9 @@ import com.nomensvyat.offlinechat.model.entities.persistent.PersistentMessageDao
 import com.nomensvyat.offlinechat.model.repositories.message.FakeRemoteRepository;
 import com.nomensvyat.offlinechat.model.repositories.message.LocalMessageRepository;
 import com.nomensvyat.offlinechat.model.repositories.message.MessageRepository;
+import com.nomensvyat.offlinechat.model.services.message.MessageService;
+import com.nomensvyat.offlinechat.notification.OnNewMessageListener;
+import com.nomensvyat.offlinechat.utils.FakeRemoteIdProvider;
 
 import dagger.Module;
 import dagger.Provides;
@@ -29,8 +32,8 @@ public class AppModule {
     @Provides
     @PerApplication
     @Remote
-    MessageRepository provideMessageRepository() {
-        return new FakeRemoteRepository();
+    MessageRepository provideMessageRepository(FakeRemoteIdProvider remoteIdProvider) {
+        return new FakeRemoteRepository(remoteIdProvider);
     }
 
     @Provides
@@ -38,5 +41,10 @@ public class AppModule {
     @Local
     MessageRepository provideLocalMessageRepository(PersistentMessageDao persistentMessageDao) {
         return new LocalMessageRepository(persistentMessageDao);
+    }
+
+    @Provides
+    OnNewMessageListener provideOnNewMessageListener(MessageService messageService) {
+        return messageService;
     }
 }

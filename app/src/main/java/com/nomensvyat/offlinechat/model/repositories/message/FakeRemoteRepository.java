@@ -1,6 +1,7 @@
 package com.nomensvyat.offlinechat.model.repositories.message;
 
 import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
+import com.nomensvyat.offlinechat.utils.FakeRemoteIdProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,12 @@ import rx.Single;
 import rx.schedulers.Schedulers;
 
 public class FakeRemoteRepository implements MessageRepository {
+    private final FakeRemoteIdProvider remoteIdProvider;
     private List<RawMessage> messageDb = new ArrayList<>();
+
+    public FakeRemoteRepository(FakeRemoteIdProvider remoteIdProvider) {
+        this.remoteIdProvider = remoteIdProvider;
+    }
 
     @Override
     public Single<List<RawMessage>> getMessages() {
@@ -50,8 +56,6 @@ public class FakeRemoteRepository implements MessageRepository {
     }
 
     private long getLastId() {
-        //messages save here will always have remoteId set
-        //noinspection ConstantConditions
-        return messageDb.size() == 0 ? 1 : messageDb.get(messageDb.size() - 1).getRemoteId();
+        return remoteIdProvider.getAndIncrement();
     }
 }

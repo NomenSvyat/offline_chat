@@ -8,6 +8,7 @@ import com.nomensvyat.offlinechat.di.application.PerApplication;
 import com.nomensvyat.offlinechat.model.entities.Message;
 import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
 import com.nomensvyat.offlinechat.model.repositories.message.MessageRepository;
+import com.nomensvyat.offlinechat.notification.OnNewMessageListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +18,10 @@ import javax.inject.Inject;
 import rx.Observable;
 import rx.Single;
 import rx.subjects.PublishSubject;
+import timber.log.Timber;
 
 @PerApplication
-public class MessageService {
+public class MessageService implements OnNewMessageListener {
 
     private final MessageRepository localMessageRepository;
     private final MessageRepository remoteMessageRepository;
@@ -32,7 +34,10 @@ public class MessageService {
         this.remoteMessageRepository = remoteMessageRepository;
     }
 
+    @Override
     public void onNewMessage(RawMessage rawMessage) {
+        Timber.d("New message: %s", rawMessage.toString());
+
         localMessageRepository.saveMessage(rawMessage)
                 .subscribe(newMessageSubject::onNext);
     }
