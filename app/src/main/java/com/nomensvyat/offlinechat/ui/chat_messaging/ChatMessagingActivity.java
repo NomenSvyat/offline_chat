@@ -89,6 +89,8 @@ public class ChatMessagingActivity extends BaseActivity<ChatMessagingView, ChatM
     public void onSendButtonClick(View view) {
         String message = binding.inputLayout.messageEditText.getText().toString().trim();
 
+        binding.inputLayout.messageEditText.setText("");
+
         if (TextUtils.isEmpty(message)) {
             return;
         }
