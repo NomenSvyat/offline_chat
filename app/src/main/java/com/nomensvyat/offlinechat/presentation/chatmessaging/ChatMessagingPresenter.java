@@ -1,6 +1,7 @@
 package com.nomensvyat.offlinechat.presentation.chatmessaging;
 
 import android.support.annotation.Nullable;
+import android.support.annotation.UiThread;
 import android.text.TextUtils;
 
 import com.nomensvyat.offlinechat.model.entities.Message;
@@ -12,6 +13,7 @@ import com.nomensvyat.offlinechat.presentation.base.BasePresenter;
 
 import java.util.List;
 
+import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
 public final class ChatMessagingPresenter extends BasePresenter<ChatMessagingView> {
@@ -23,24 +25,45 @@ public final class ChatMessagingPresenter extends BasePresenter<ChatMessagingVie
     }
 
     public void getMessages(long roomId) {
-        messageService.getAllMessages(roomId)
-                .subscribe(this::showMessages);
+        addSubscription(
+                messageService.getAllMessages(roomId)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(this::showMessages)
+        );
+
+        observeNewMessages(roomId);
     }
 
+    public void observeNewMessages(long roomId) {
+        addSubscription(
+                messageService.observeNewMessages()
+                        .filter(message -> message.getRoomId() == roomId)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(this::onNewMessage)
+        );
+    }
+
+    @UiThread
     private void showMessages(@Nullable List<Message> messages) {
         if (messages != null && isViewAttached()) {
+            //noinspection ConstantConditions
             getView().showMessages(messages);
         }
     }
 
-    public void observeNewMessages() {
-        messageService.observeNewMessages()
-                .subscribe(this::showMessage);
+    @UiThread
+    private void onNewMessage(@Nullable Message message) {
+        if (message != null && isViewAttached()) {
+            //noinspection ConstantConditions
+            getView().onNewMessage(message);
+        }
     }
 
-    private void showMessage(@Nullable Message message) {
-        if (message != null && isViewAttached()) {
-            getView().onNewMessage(message);
+    @UiThread
+    private void updateMessage(Message message) {
+        if (isViewAttached()) {
+            //noinspection ConstantConditions
+            getView().onMessageUpdate(message);
         }
     }
 
@@ -56,8 +79,10 @@ public final class ChatMessagingPresenter extends BasePresenter<ChatMessagingVie
                 .type(MessageTypes.OUT)
                 .build();
 
-        messageService.sendMessage(rawMessage)
-                // TODO: 23.01.2017 add error handling
-                .subscribe(this::showMessage);
+        addSubscription(
+                messageService.sendMessage(rawMessage)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(this::onNewMessage)
+        );
     }
 }

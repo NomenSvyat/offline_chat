@@ -10,6 +10,7 @@ import java.util.List;
 import rx.Observable;
 import rx.Single;
 import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class LocalMessageRepository implements MessageRepository {
 
@@ -48,6 +49,7 @@ public class LocalMessageRepository implements MessageRepository {
 
     @Override
     public Single<RawMessage> saveMessage(RawMessage rawMessage) {
+        Timber.d("Saving message %s", rawMessage.toString());
         return persistentMessageDao.rx()
                 .save(toPersistentMessage(rawMessage))
                 .first()
@@ -62,6 +64,7 @@ public class LocalMessageRepository implements MessageRepository {
 
     @Override
     public Single<List<RawMessage>> saveMessages(List<RawMessage> rawMessages) {
+        Timber.d("Saving messages %s", rawMessages.toString());
         return Observable.from(rawMessages)
                 .observeOn(Schedulers.computation())
                 .map(MessageMappers.createToPersistentMessageMapper()::map)

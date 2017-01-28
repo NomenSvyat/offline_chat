@@ -56,6 +56,8 @@ public class ChatMessagingActivity extends BaseActivity<ChatMessagingView, ChatM
                 .map(charSequence -> !TextUtils.isEmpty(charSequence))
                 .distinctUntilChanged()
                 .subscribe(binding.inputLayout.sendButton::setEnabled);
+
+        presenter.getMessages(room.getRoomId());
     }
 
     private void readExtras() {
@@ -70,8 +72,7 @@ public class ChatMessagingActivity extends BaseActivity<ChatMessagingView, ChatM
         chatMessagesAdapter = new ChatMessagesAdapter();
 
         binding.chatMessageList.setAdapter(chatMessagesAdapter);
-        binding.chatMessageList.setLayoutManager(
-                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
+        binding.chatMessageList.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
