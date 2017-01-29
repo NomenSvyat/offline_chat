@@ -1,7 +1,5 @@
 package com.nomensvyat.offlinechat.notification;
 
-import android.content.Context;
-
 import com.nomensvyat.offlinechat.model.repositories.NotificationCountRepository;
 import com.nomensvyat.offlinechat.notification.badge.BadgeShower;
 
@@ -13,8 +11,7 @@ public class NotificationCounter {
     private final NotificationCountRepository notificationCountRepository;
 
     public NotificationCounter(BadgeShower badgeShower,
-            NotificationCountRepository notificationCountRepository,
-            Context context) {
+            NotificationCountRepository notificationCountRepository) {
         this.badgeShower = badgeShower;
         this.notificationCountRepository = notificationCountRepository;
     }

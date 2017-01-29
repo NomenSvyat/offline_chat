@@ -62,7 +62,7 @@ public class AppModule {
     @PerApplication
     NotificationCounter provideNotificationCounter(NotificationCountRepository notificationCountRepository) {
         return new NotificationCounter(new ShortcutBadgeWrapper(application),
-                                       notificationCountRepository, application);
+                                       notificationCountRepository);
     }
 
     @Provides
