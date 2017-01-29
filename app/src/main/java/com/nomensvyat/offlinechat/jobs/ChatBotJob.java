@@ -22,15 +22,11 @@ public class ChatBotJob extends Job {
 
     private final OnNewMessageListener onNewMessageListener;
     private final MessageRepository fakeRemoteRepository;
-    private Calendar calendar;
 
     public ChatBotJob(MessageRepository fakeRemoteRepository,
             OnNewMessageListener onNewMessageListener) {
         this.fakeRemoteRepository = fakeRemoteRepository;
         this.onNewMessageListener = onNewMessageListener;
-
-        calendar = Calendar.getInstance();
-        calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
     }
 
     public static void schedule() {
@@ -49,9 +45,10 @@ public class ChatBotJob extends Job {
     @Override
     protected Result onRunJob(Params params) {
         Timber.d("Bot is running...");
+
         RawMessage message = RawMessage.builder()
                 .message("Message from bot at " + SystemClock.elapsedRealtime() / 1000)
-                .datetime(calendar.getTimeInMillis())
+                .datetime(Calendar.getInstance(TimeZone.getTimeZone("GMT")).getTimeInMillis())
                 .roomId(1L)
                 .type(MessageTypes.IN)
                 .build();

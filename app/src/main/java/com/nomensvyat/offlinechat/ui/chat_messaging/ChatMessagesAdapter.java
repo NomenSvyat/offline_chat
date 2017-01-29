@@ -18,6 +18,10 @@ import com.nomensvyat.offlinechat.presentation.chatmessaging.message.ChatMessage
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.text.format.DateUtils.FORMAT_SHOW_TIME;
+import static android.text.format.DateUtils.FORMAT_UTC;
+import static android.text.format.DateUtils.formatDateTime;
+
 public class ChatMessagesAdapter
         extends RecyclerView.Adapter<ChatMessagesAdapter.MessageViewHolder> {
     private static final int MESSAGE_IN_TYPE = 1;
@@ -159,8 +163,13 @@ public class ChatMessagesAdapter
 
         @Override
         public String getTime() {
-            // STOPSHIP: 23.01.2017 format time according to locale
-            return "stub";
+            Long datetime = message.getDatetime();
+            if (datetime == null) {
+                return "";
+            }
+            return formatDateTime(binding.getRoot().getContext(),
+                                  datetime,
+                                  FORMAT_SHOW_TIME | FORMAT_UTC);
         }
 
     }

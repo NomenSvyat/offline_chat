@@ -4,7 +4,9 @@ import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
 import com.nomensvyat.offlinechat.utils.FakeRemoteIdProvider;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -40,10 +42,17 @@ public class FakeRemoteRepository implements MessageRepository {
     public Single<RawMessage> saveMessage(RawMessage rawMessage) {
         rawMessage = rawMessage.toBuilder()
                 .remoteId(getLastId() + 1)
+                .datetime(getDateTime(rawMessage))
                 .build();
 
         messageDb.add(rawMessage);
         return Single.just(rawMessage);
+    }
+
+    private long getDateTime(RawMessage rawMessage) {
+        return rawMessage.getDatetime() == null || rawMessage.getDatetime() == 0 ?
+                Calendar.getInstance(TimeZone.getTimeZone("GMT")).getTimeInMillis() :
+                rawMessage.getDatetime();
     }
 
     @Override
