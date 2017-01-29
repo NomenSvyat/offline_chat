@@ -1,10 +1,12 @@
 package com.nomensvyat.offlinechat.model.repositories.message;
 
+import com.nomensvyat.offlinechat.model.entities.message.Message;
 import com.nomensvyat.offlinechat.model.entities.message.PersistentMessage;
 import com.nomensvyat.offlinechat.model.entities.message.PersistentMessageDao;
 import com.nomensvyat.offlinechat.model.entities.message.RawMessage;
 import com.nomensvyat.offlinechat.model.mapper.MessageMappers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -67,8 +69,41 @@ public class LocalMessageRepository implements MessageRepository {
     }
 
     @Override
-    public Single<List<RawMessage>> saveMessages(List<RawMessage> rawMessages) {
+    public Single<List<RawMessage>> saveMessages(final List<RawMessage> rawMessages) {
         Timber.d("Saving messages %s", rawMessages.toString());
+        return Observable.from(rawMessages)
+                .observeOn(Schedulers.computation())
+                .map(Message::getRemoteId)
+                .toList()
+                .flatMap(remoteIds ->
+                                 persistentMessageDao.queryBuilder()
+                                         .where(RemoteId.in(remoteIds))
+                                         .rx()
+                                         .list())
+                .map(persistentMessages -> getDifference(rawMessages, persistentMessages))
+                .first().toSingle()
+                .flatMap(this::doSaveMessages);
+    }
+
+    private List<RawMessage> getDifference(List<RawMessage> fromList,
+            List<PersistentMessage> extractList) {
+        List<RawMessage> resultList = new ArrayList<>();
+
+        outer:
+        for (RawMessage rawMessage : fromList) {
+            if (rawMessage.getRemoteId() == null) continue;
+            for (PersistentMessage persistentMessage : extractList) {
+                if (rawMessage.getRemoteId().equals(persistentMessage.getRemoteId())) {
+                    continue outer;
+                }
+            }
+            resultList.add(rawMessage);
+        }
+
+        return resultList;
+    }
+
+    private Single<List<RawMessage>> doSaveMessages(final List<RawMessage> rawMessages) {
         return Observable.from(rawMessages)
                 .observeOn(Schedulers.computation())
                 .map(MessageMappers.createToPersistentMessageMapper()::map)
@@ -78,7 +113,6 @@ public class LocalMessageRepository implements MessageRepository {
                 .flatMap(Observable::from)
                 .map(MessageMappers.createToRawMessageMapper()::map)
                 .toList()
-                .first()
-                .toSingle();
+                .first().toSingle();
     }
 }
