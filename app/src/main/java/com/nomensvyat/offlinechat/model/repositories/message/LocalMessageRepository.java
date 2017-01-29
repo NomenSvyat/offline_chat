@@ -12,6 +12,10 @@ import rx.Single;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static com.nomensvyat.offlinechat.model.entities.message.PersistentMessageDao.Properties.Id;
+import static com.nomensvyat.offlinechat.model.entities.message.PersistentMessageDao.Properties.RemoteId;
+import static com.nomensvyat.offlinechat.model.entities.message.PersistentMessageDao.Properties.RoomId;
+
 public class LocalMessageRepository implements MessageRepository {
 
     private PersistentMessageDao persistentMessageDao;
@@ -36,11 +40,11 @@ public class LocalMessageRepository implements MessageRepository {
 
     @Override
     public Single<List<RawMessage>> getMessages(long roomId) {
-        // TODO: 23.01.2017 rewrite using query
-        return getAllMessages()
-                .observeOn(Schedulers.computation())
-                .flatMap(Observable::from)
-                .filter(persistentMessage -> persistentMessage.getRoomId() == roomId)
+        return persistentMessageDao.queryBuilder()
+                .where(RoomId.eq(roomId))
+                .orderAsc(RemoteId, Id)
+                .rx()
+                .oneByOne()
                 .map(MessageMappers.createToRawMessageMapper()::map)
                 .toList()
                 .first()

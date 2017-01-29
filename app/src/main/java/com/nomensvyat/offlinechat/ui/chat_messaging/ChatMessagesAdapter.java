@@ -193,7 +193,7 @@ public class ChatMessagesAdapter
         @Override
         public String getStatus() {
             // STOPSHIP: 23.01.2017 add status field to message
-            return "stub";
+            return "";
         }
     }
 
