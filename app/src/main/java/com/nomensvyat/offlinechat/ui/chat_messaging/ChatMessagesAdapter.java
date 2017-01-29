@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.text.format.DateUtils.FORMAT_SHOW_TIME;
-import static android.text.format.DateUtils.FORMAT_UTC;
 import static android.text.format.DateUtils.formatDateTime;
 
 public class ChatMessagesAdapter
@@ -169,7 +168,7 @@ public class ChatMessagesAdapter
             }
             return formatDateTime(binding.getRoot().getContext(),
                                   datetime,
-                                  FORMAT_SHOW_TIME | FORMAT_UTC);
+                                  FORMAT_SHOW_TIME);
         }
 
     }
