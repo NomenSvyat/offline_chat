@@ -1,8 +1,8 @@
-package com.nomensvyat.offlinechat.model.entities.mapper;
+package com.nomensvyat.offlinechat.model.mapper;
 
-import com.nomensvyat.offlinechat.model.entities.Message;
-import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
-import com.nomensvyat.offlinechat.model.entities.persistent.PersistentMessage;
+import com.nomensvyat.offlinechat.model.entities.message.Message;
+import com.nomensvyat.offlinechat.model.entities.message.PersistentMessage;
+import com.nomensvyat.offlinechat.model.entities.message.RawMessage;
 import com.nomensvyat.offlinechat.utils.Provider;
 
 public class MessageMappers {

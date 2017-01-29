@@ -2,7 +2,7 @@ package com.nomensvyat.offlinechat.model.repositories.message;
 
 import android.support.annotation.CheckResult;
 
-import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
+import com.nomensvyat.offlinechat.model.entities.message.RawMessage;
 
 import java.util.List;
 

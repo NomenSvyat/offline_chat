@@ -1,7 +1,7 @@
 package com.nomensvyat.offlinechat.model.repositories;
 
-import com.nomensvyat.offlinechat.model.entities.persistent.NotificationCount;
-import com.nomensvyat.offlinechat.model.entities.persistent.NotificationCountDao;
+import com.nomensvyat.offlinechat.model.entities.NotificationCount;
+import com.nomensvyat.offlinechat.model.entities.NotificationCountDao;
 
 import rx.Observable;
 import rx.Single;

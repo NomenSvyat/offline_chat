@@ -2,7 +2,7 @@ package com.nomensvyat.offlinechat.model.persistent;
 
 import android.content.Context;
 
-import com.nomensvyat.offlinechat.model.entities.persistent.DaoMaster;
+import com.nomensvyat.offlinechat.model.entities.message.DaoMaster;
 
 import org.greenrobot.greendao.database.Database;
 

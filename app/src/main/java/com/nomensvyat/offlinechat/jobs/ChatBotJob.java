@@ -6,8 +6,8 @@ import android.support.annotation.NonNull;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
-import com.nomensvyat.offlinechat.model.entities.network.message.MessageTypes;
-import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
+import com.nomensvyat.offlinechat.model.entities.message.MessageTypes;
+import com.nomensvyat.offlinechat.model.entities.message.RawMessage;
 import com.nomensvyat.offlinechat.model.repositories.message.MessageRepository;
 import com.nomensvyat.offlinechat.notification.OnNewMessageListener;
 

@@ -1,4 +1,4 @@
-package com.nomensvyat.offlinechat.model.entities.network.message;
+package com.nomensvyat.offlinechat.model.entities.message;
 
 public class MessageTypes {
     public static final String IN = "in";

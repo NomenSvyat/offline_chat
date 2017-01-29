@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import com.nomensvyat.offlinechat.di.Local;
 import com.nomensvyat.offlinechat.di.Remote;
 import com.nomensvyat.offlinechat.di.application.PerApplication;
-import com.nomensvyat.offlinechat.model.entities.Message;
-import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
+import com.nomensvyat.offlinechat.model.entities.message.Message;
+import com.nomensvyat.offlinechat.model.entities.message.RawMessage;
 import com.nomensvyat.offlinechat.model.repositories.message.MessageRepository;
 import com.nomensvyat.offlinechat.notification.OnNewMessageListener;
 

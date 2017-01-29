@@ -1,9 +1,8 @@
-package com.nomensvyat.offlinechat.model.entities.network.message;
+package com.nomensvyat.offlinechat.model.entities.message;
 
 import android.support.annotation.NonNull;
 
 import com.google.auto.value.AutoValue;
-import com.nomensvyat.offlinechat.model.entities.Message;
 
 @AutoValue
 public abstract class RawMessage implements Message {

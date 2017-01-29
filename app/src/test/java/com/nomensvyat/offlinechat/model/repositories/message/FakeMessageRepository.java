@@ -1,6 +1,6 @@
 package com.nomensvyat.offlinechat.model.repositories.message;
 
-import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
+import com.nomensvyat.offlinechat.model.entities.message.RawMessage;
 
 import java.util.ArrayList;
 import java.util.List;

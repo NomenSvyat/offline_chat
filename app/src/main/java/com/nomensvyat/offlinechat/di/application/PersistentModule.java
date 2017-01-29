@@ -2,10 +2,10 @@ package com.nomensvyat.offlinechat.di.application;
 
 import android.content.Context;
 
-import com.nomensvyat.offlinechat.model.entities.persistent.DaoMaster;
-import com.nomensvyat.offlinechat.model.entities.persistent.DaoSession;
-import com.nomensvyat.offlinechat.model.entities.persistent.NotificationCountDao;
-import com.nomensvyat.offlinechat.model.entities.persistent.PersistentMessageDao;
+import com.nomensvyat.offlinechat.model.entities.NotificationCountDao;
+import com.nomensvyat.offlinechat.model.entities.message.DaoMaster;
+import com.nomensvyat.offlinechat.model.entities.message.DaoSession;
+import com.nomensvyat.offlinechat.model.entities.message.PersistentMessageDao;
 import com.nomensvyat.offlinechat.model.persistent.DatabaseOpenHelper;
 
 import org.greenrobot.greendao.database.Database;

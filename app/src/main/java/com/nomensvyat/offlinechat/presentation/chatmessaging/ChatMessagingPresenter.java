@@ -5,10 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
 import android.text.TextUtils;
 
-import com.nomensvyat.offlinechat.model.entities.Message;
 import com.nomensvyat.offlinechat.model.entities.Room;
-import com.nomensvyat.offlinechat.model.entities.network.message.MessageTypes;
-import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
+import com.nomensvyat.offlinechat.model.entities.message.Message;
+import com.nomensvyat.offlinechat.model.entities.message.MessageTypes;
+import com.nomensvyat.offlinechat.model.entities.message.RawMessage;
 import com.nomensvyat.offlinechat.model.services.message.MessageService;
 import com.nomensvyat.offlinechat.notification.NotificationHandler;
 import com.nomensvyat.offlinechat.notification.NotificationManager;

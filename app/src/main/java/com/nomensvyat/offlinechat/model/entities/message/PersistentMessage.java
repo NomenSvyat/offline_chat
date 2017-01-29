@@ -1,8 +1,6 @@
-package com.nomensvyat.offlinechat.model.entities.persistent;
+package com.nomensvyat.offlinechat.model.entities.message;
 
 import android.support.annotation.NonNull;
-
-import com.nomensvyat.offlinechat.model.entities.Message;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
@@ -87,11 +85,11 @@ public class PersistentMessage implements Message {
         this.message = message;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

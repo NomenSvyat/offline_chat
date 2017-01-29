@@ -1,4 +1,4 @@
-package com.nomensvyat.offlinechat.model.entities.persistent;
+package com.nomensvyat.offlinechat.model.entities;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;

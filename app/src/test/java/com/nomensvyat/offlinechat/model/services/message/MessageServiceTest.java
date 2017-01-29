@@ -1,8 +1,8 @@
 package com.nomensvyat.offlinechat.model.services.message;
 
-import com.nomensvyat.offlinechat.model.entities.Message;
-import com.nomensvyat.offlinechat.model.entities.network.message.MessageTypes;
-import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
+import com.nomensvyat.offlinechat.model.entities.message.Message;
+import com.nomensvyat.offlinechat.model.entities.message.MessageTypes;
+import com.nomensvyat.offlinechat.model.entities.message.RawMessage;
 import com.nomensvyat.offlinechat.model.repositories.message.FakeMessageRepository;
 
 import org.junit.Test;

@@ -1,9 +1,9 @@
 package com.nomensvyat.offlinechat.model.repositories.message;
 
-import com.nomensvyat.offlinechat.model.entities.mapper.MessageMappers;
-import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
-import com.nomensvyat.offlinechat.model.entities.persistent.PersistentMessage;
-import com.nomensvyat.offlinechat.model.entities.persistent.PersistentMessageDao;
+import com.nomensvyat.offlinechat.model.entities.message.PersistentMessage;
+import com.nomensvyat.offlinechat.model.entities.message.PersistentMessageDao;
+import com.nomensvyat.offlinechat.model.entities.message.RawMessage;
+import com.nomensvyat.offlinechat.model.mapper.MessageMappers;
 
 import java.util.List;
 

@@ -10,7 +10,7 @@ import android.support.v4.app.NotificationManagerCompat;
 
 import com.nomensvyat.offlinechat.R;
 import com.nomensvyat.offlinechat.model.entities.Room;
-import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
+import com.nomensvyat.offlinechat.model.entities.message.RawMessage;
 import com.nomensvyat.offlinechat.model.services.message.MessageService;
 import com.nomensvyat.offlinechat.ui.chat_messaging.ChatMessagingActivity;
 

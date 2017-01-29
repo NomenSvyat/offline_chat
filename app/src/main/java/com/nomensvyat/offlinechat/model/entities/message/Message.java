@@ -1,4 +1,4 @@
-package com.nomensvyat.offlinechat.model.entities;
+package com.nomensvyat.offlinechat.model.entities.message;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import com.nomensvyat.offlinechat.BR;
 import com.nomensvyat.offlinechat.databinding.ChatMessageInItemBinding;
 import com.nomensvyat.offlinechat.databinding.ChatMessageOutItemBinding;
-import com.nomensvyat.offlinechat.model.entities.Message;
-import com.nomensvyat.offlinechat.model.entities.network.message.MessageTypes;
+import com.nomensvyat.offlinechat.model.entities.message.Message;
+import com.nomensvyat.offlinechat.model.entities.message.MessageTypes;
 import com.nomensvyat.offlinechat.presentation.chatmessaging.message.ChatMessageOutViewModel;
 import com.nomensvyat.offlinechat.presentation.chatmessaging.message.ChatMessageViewModel;
 

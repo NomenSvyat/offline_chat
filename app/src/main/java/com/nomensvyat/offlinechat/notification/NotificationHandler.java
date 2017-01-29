@@ -2,7 +2,7 @@ package com.nomensvyat.offlinechat.notification;
 
 import android.support.annotation.NonNull;
 
-import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
+import com.nomensvyat.offlinechat.model.entities.message.RawMessage;
 
 public interface NotificationHandler {
     /**

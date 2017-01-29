@@ -5,8 +5,8 @@ import android.content.Context;
 
 import com.nomensvyat.offlinechat.di.Local;
 import com.nomensvyat.offlinechat.di.Remote;
-import com.nomensvyat.offlinechat.model.entities.persistent.NotificationCountDao;
-import com.nomensvyat.offlinechat.model.entities.persistent.PersistentMessageDao;
+import com.nomensvyat.offlinechat.model.entities.NotificationCountDao;
+import com.nomensvyat.offlinechat.model.entities.message.PersistentMessageDao;
 import com.nomensvyat.offlinechat.model.repositories.NotificationCountRepository;
 import com.nomensvyat.offlinechat.model.repositories.message.FakeRemoteRepository;
 import com.nomensvyat.offlinechat.model.repositories.message.LocalMessageRepository;
