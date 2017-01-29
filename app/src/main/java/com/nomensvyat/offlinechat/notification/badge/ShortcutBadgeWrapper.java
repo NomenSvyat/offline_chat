@@ -3,6 +3,7 @@ package com.nomensvyat.offlinechat.notification.badge;
 import android.content.Context;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
+import timber.log.Timber;
 
 public class ShortcutBadgeWrapper implements BadgeShower {
     private final Context context;
@@ -17,7 +18,7 @@ public class ShortcutBadgeWrapper implements BadgeShower {
             remove();
             return;
         }
-
+        Timber.d("Showing badge with %d for %s", count, context.getPackageName());
         ShortcutBadger.applyCount(context, count);
     }
 
