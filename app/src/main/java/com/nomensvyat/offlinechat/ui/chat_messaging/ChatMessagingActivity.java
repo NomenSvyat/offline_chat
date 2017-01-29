@@ -80,6 +80,13 @@ public class ChatMessagingActivity extends BaseActivity<ChatMessagingView, ChatM
         activityComponent.injectTo(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        presenter.hideNotifications(room);
+    }
+
     @NonNull
     @Override
     public ChatMessagingPresenter createPresenter() {

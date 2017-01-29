@@ -5,6 +5,7 @@ import com.nomensvyat.offlinechat.model.entities.persistent.NotificationCountDao
 
 import rx.Observable;
 import rx.Single;
+import timber.log.Timber;
 
 public class NotificationCountRepository {
     private final NotificationCountDao notificationCountDao;
@@ -34,6 +35,9 @@ public class NotificationCountRepository {
     public Single<Integer> increment(long roomId) {
         return notificationCountDao.rx()
                 .load(roomId)
+                .filter(notificationCount -> notificationCount != null)
+                .doOnNext(notificationCount -> Timber.d("Trying to increment %s",
+                                                        String.valueOf(notificationCount)))
                 .defaultIfEmpty(new NotificationCount(roomId, 0))
                 .first()
                 .toSingle()

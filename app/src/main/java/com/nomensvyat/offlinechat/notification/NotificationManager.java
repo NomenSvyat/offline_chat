@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationManagerCompat;
 import com.nomensvyat.offlinechat.R;
 import com.nomensvyat.offlinechat.model.entities.Room;
 import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
+import com.nomensvyat.offlinechat.model.services.message.MessageService;
 import com.nomensvyat.offlinechat.ui.chat_messaging.ChatMessagingActivity;
 
 import rx.Observable;
@@ -22,16 +23,20 @@ public class NotificationManager implements OnNewMessageListener {
     private static final int NOTIFICATION_REQ_CODE = 12;
     protected final Context context;
     private final NotificationCounter notificationCounter;
+    private final MessageService messageService;
     private NotificationHandler notificationHandler;
 
     public NotificationManager(Context context,
-            NotificationCounter notificationCounter) {
+            NotificationCounter notificationCounter,
+            MessageService messageService) {
         this.context = context;
         this.notificationCounter = notificationCounter;
+        this.messageService = messageService;
     }
 
     @Override
     public void onNewMessage(RawMessage rawMessage) {
+        messageService.onNewMessage(rawMessage);
         Observable.fromCallable(
                 () -> notificationHandler != null
                         && notificationHandler.handleNotification(rawMessage))
@@ -80,6 +85,7 @@ public class NotificationManager implements OnNewMessageListener {
                                                                      Room.createRoom(roomId));
         //this is for intentEquals method, so notification for new room won't update existing
         startIntent.setData(Uri.parse("room " + roomId));
+        startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
         return PendingIntent.getActivity(context,
                                          NOTIFICATION_REQ_CODE,
@@ -100,5 +106,9 @@ public class NotificationManager implements OnNewMessageListener {
     @Nullable
     protected NotificationHandler getNotificationHandler() {
         return notificationHandler;
+    }
+
+    public void hideNotifications(Room room) {
+        NotificationManagerCompat.from(context).cancel(Long.valueOf(room.getRoomId()).hashCode());
     }
 }

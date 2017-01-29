@@ -67,7 +67,8 @@ public class AppModule {
 
     @Provides
     @PerApplication
-    NotificationManager provideNotificationManager(NotificationCounter notificationCounter) {
-        return new NotificationManager(application, notificationCounter);
+    NotificationManager provideNotificationManager(NotificationCounter notificationCounter,
+            MessageService messageService) {
+        return new NotificationManager(application, notificationCounter, messageService);
     }
 }

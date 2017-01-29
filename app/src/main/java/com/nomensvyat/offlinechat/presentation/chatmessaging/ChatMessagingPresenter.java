@@ -114,4 +114,8 @@ public final class ChatMessagingPresenter extends BasePresenter<ChatMessagingVie
         //noinspection ConstantConditions
         return getView().isForRoom(Room.createRoom(rawMessage.getRoomId()));
     }
+
+    public void hideNotifications(@NonNull Room room) {
+        notificationManager.hideNotifications(room);
+    }
 }

@@ -7,11 +7,11 @@ import org.greenrobot.greendao.annotation.Id;
 @Entity
 public class NotificationCount {
     @Id
-    private long roomId;
+    private Long roomId;
     private int count;
 
-    @Generated(hash = 1943221926)
-    public NotificationCount(long roomId, int count) {
+    @Generated(hash = 1223550317)
+    public NotificationCount(Long roomId, int count) {
         this.roomId = roomId;
         this.count = count;
     }
@@ -20,11 +20,11 @@ public class NotificationCount {
     public NotificationCount() {
     }
 
-    public long getRoomId() {
+    public Long getRoomId() {
         return this.roomId;
     }
 
-    public void setRoomId(long roomId) {
+    public void setRoomId(Long roomId) {
         this.roomId = roomId;
     }
 
@@ -35,4 +35,5 @@ public class NotificationCount {
     public void setCount(int count) {
         this.count = count;
     }
+
 }
