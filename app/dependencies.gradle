@@ -44,4 +44,6 @@ dependencies {
     compile 'org.greenrobot:greendao:3.2.0'
 
     compile 'com.evernote:android-job:1.1.5'
+
+    compile 'me.leolin:ShortcutBadger:1.1.10@aar'
 }
