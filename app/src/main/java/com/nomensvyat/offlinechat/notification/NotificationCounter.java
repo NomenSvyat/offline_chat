@@ -34,8 +34,6 @@ public class NotificationCounter {
     public void onNotificationCancel(long room) {
         notificationCountRepository.reset(room);
 
-        notificationManager.cancel(((Long) room).hashCode());
-
         showBadge();
     }
 

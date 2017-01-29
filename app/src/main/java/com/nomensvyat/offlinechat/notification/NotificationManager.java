@@ -109,6 +109,8 @@ public class NotificationManager implements OnNewMessageListener {
     }
 
     public void hideNotifications(Room room) {
+        notificationCounter.onNotificationCancel(room.getRoomId());
+
         NotificationManagerCompat.from(context).cancel(Long.valueOf(room.getRoomId()).hashCode());
     }
 }
