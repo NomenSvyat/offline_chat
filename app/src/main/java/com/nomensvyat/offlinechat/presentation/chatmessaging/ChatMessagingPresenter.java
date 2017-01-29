@@ -1,5 +1,6 @@
 package com.nomensvyat.offlinechat.presentation.chatmessaging;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
 import android.text.TextUtils;
@@ -9,6 +10,8 @@ import com.nomensvyat.offlinechat.model.entities.Room;
 import com.nomensvyat.offlinechat.model.entities.network.message.MessageTypes;
 import com.nomensvyat.offlinechat.model.entities.network.message.RawMessage;
 import com.nomensvyat.offlinechat.model.services.message.MessageService;
+import com.nomensvyat.offlinechat.notification.NotificationHandler;
+import com.nomensvyat.offlinechat.notification.NotificationManager;
 import com.nomensvyat.offlinechat.presentation.base.BasePresenter;
 
 import java.util.List;
@@ -16,12 +19,28 @@ import java.util.List;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
-public final class ChatMessagingPresenter extends BasePresenter<ChatMessagingView> {
+public final class ChatMessagingPresenter extends BasePresenter<ChatMessagingView>
+        implements NotificationHandler {
 
     private final MessageService messageService;
+    private final NotificationManager notificationManager;
 
-    public ChatMessagingPresenter(MessageService messageService) {
+    public ChatMessagingPresenter(MessageService messageService,
+            NotificationManager notificationManager) {
         this.messageService = messageService;
+        this.notificationManager = notificationManager;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        notificationManager.registerNotificationHandler(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        notificationManager.unregisterNotificationHandler(this);
     }
 
     public void getMessages(long roomId) {
@@ -84,5 +103,15 @@ public final class ChatMessagingPresenter extends BasePresenter<ChatMessagingVie
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::onNewMessage)
         );
+    }
+
+    @Override
+    public boolean handleNotification(@NonNull RawMessage rawMessage) {
+        if (!isViewAttached()) {
+            return false;
+        }
+
+        //noinspection ConstantConditions
+        return getView().isForRoom(Room.createRoom(rawMessage.getRoomId()));
     }
 }

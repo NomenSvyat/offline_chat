@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.hannesdorfmann.mosby.mvp.MvpView;
 import com.nomensvyat.offlinechat.model.entities.Message;
+import com.nomensvyat.offlinechat.model.entities.Room;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface ChatMessagingView extends MvpView {
     void showMessages(List<Message> messages);
 
     void onMessageUpdate(@Nullable Message message);
+
+    boolean isForRoom(Room room);
 }

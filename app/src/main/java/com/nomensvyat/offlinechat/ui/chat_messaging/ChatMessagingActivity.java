@@ -121,4 +121,9 @@ public class ChatMessagingActivity extends BaseActivity<ChatMessagingView, ChatM
 
         chatMessagesAdapter.updateMessage(message);
     }
+
+    @Override
+    public boolean isForRoom(Room room) {
+        return this.room.equals(room);
+    }
 }

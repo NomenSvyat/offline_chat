@@ -5,7 +5,7 @@ import com.evernote.android.job.JobCreator;
 import com.nomensvyat.offlinechat.di.Remote;
 import com.nomensvyat.offlinechat.jobs.ChatBotJob;
 import com.nomensvyat.offlinechat.model.repositories.message.MessageRepository;
-import com.nomensvyat.offlinechat.notification.OnNewMessageListener;
+import com.nomensvyat.offlinechat.notification.NotificationManager;
 
 import java.util.Map;
 
@@ -23,7 +23,7 @@ public class JobModule {
     @IntoMap
     @StringKey(ChatBotJob.TAG)
     Job provideChatBotJob(@Remote MessageRepository messageRepository,
-            OnNewMessageListener onNewMessageListener) {
+            NotificationManager onNewMessageListener) {
         return new ChatBotJob(messageRepository, onNewMessageListener);
     }
 

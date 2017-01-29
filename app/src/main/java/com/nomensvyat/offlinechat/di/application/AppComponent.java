@@ -2,6 +2,7 @@ package com.nomensvyat.offlinechat.di.application;
 
 import com.evernote.android.job.JobCreator;
 import com.nomensvyat.offlinechat.model.services.message.MessageService;
+import com.nomensvyat.offlinechat.notification.NotificationManager;
 
 import dagger.Component;
 
@@ -11,4 +12,6 @@ public interface AppComponent {
     MessageService getMessageService();
 
     JobCreator getJobCreator();
+
+    NotificationManager getNotificationManager();
 }

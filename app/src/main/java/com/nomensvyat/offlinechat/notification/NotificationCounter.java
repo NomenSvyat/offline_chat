@@ -23,9 +23,12 @@ public class NotificationCounter {
 
     public Single<Integer> onNotificationReceive(long room) {
         return notificationCountRepository.increment(room)
-                .doOnSuccess(integer ->
-                                     badgeShower.show(notificationCountRepository.getTotalCount())
-                );
+                .doOnSuccess(integer -> showBadge());
+    }
+
+    private void showBadge() {
+        notificationCountRepository.getTotalCount()
+                .subscribe(badgeShower::show);
     }
 
     public void onNotificationCancel(long room) {
@@ -33,14 +36,12 @@ public class NotificationCounter {
 
         notificationManager.cancel(((Long) room).hashCode());
 
-        badgeShower.show(notificationCountRepository.getTotalCount());
+        showBadge();
     }
 
     public void recalculateForExisting(long... roomIds) {
         notificationCountRepository.cleanAllExcept(roomIds)
                 .onErrorResumeNext(Single.just(null))
-                .subscribe(
-                        any -> badgeShower.show(notificationCountRepository.getTotalCount())
-                );
+                .subscribe(any -> showBadge());
     }
 }

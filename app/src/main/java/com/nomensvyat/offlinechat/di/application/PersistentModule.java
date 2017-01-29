@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.nomensvyat.offlinechat.model.entities.persistent.DaoMaster;
 import com.nomensvyat.offlinechat.model.entities.persistent.DaoSession;
+import com.nomensvyat.offlinechat.model.entities.persistent.NotificationCountDao;
 import com.nomensvyat.offlinechat.model.entities.persistent.PersistentMessageDao;
 import com.nomensvyat.offlinechat.model.persistent.DatabaseOpenHelper;
 
@@ -37,5 +38,10 @@ public class PersistentModule {
     @Provides
     PersistentMessageDao providePersistentMessageDao(DaoSession daoSession) {
         return daoSession.getPersistentMessageDao();
+    }
+
+    @Provides
+    NotificationCountDao provideNotificationCountDao(DaoSession daoSession) {
+        return daoSession.getNotificationCountDao();
     }
 }
