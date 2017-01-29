@@ -7,6 +7,7 @@ import com.nomensvyat.offlinechat.model.repositories.NotificationCountRepository
 import com.nomensvyat.offlinechat.notification.badge.BadgeShower;
 
 import rx.Single;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class NotificationCounter {
     private final BadgeShower badgeShower;
@@ -28,6 +29,7 @@ public class NotificationCounter {
 
     private void showBadge() {
         notificationCountRepository.getTotalCount()
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(badgeShower::show);
     }
 
