@@ -71,18 +71,18 @@ public class LocalMessageRepository implements MessageRepository {
     @Override
     public Single<List<RawMessage>> saveMessages(final List<RawMessage> rawMessages) {
         Timber.d("Saving messages %s", rawMessages.toString());
+        return getNewMessages(rawMessages)
+                .flatMap(this::doSaveMessages);
+    }
+
+    private Single<List<RawMessage>> getNewMessages(List<RawMessage> rawMessages) {
         return Observable.from(rawMessages)
                 .observeOn(Schedulers.computation())
                 .map(Message::getRemoteId)
                 .toList()
-                .flatMap(remoteIds ->
-                                 persistentMessageDao.queryBuilder()
-                                         .where(RemoteId.in(remoteIds))
-                                         .rx()
-                                         .list())
+                .flatMap(this::getMessagesWithRemoteIds)
                 .map(persistentMessages -> getDifference(rawMessages, persistentMessages))
-                .first().toSingle()
-                .flatMap(this::doSaveMessages);
+                .first().toSingle();
     }
 
     private List<RawMessage> getDifference(List<RawMessage> fromList,
@@ -101,6 +101,13 @@ public class LocalMessageRepository implements MessageRepository {
         }
 
         return resultList;
+    }
+
+    private Observable<List<PersistentMessage>> getMessagesWithRemoteIds(List<Long> remoteIds) {
+        return persistentMessageDao.queryBuilder()
+                .where(RemoteId.in(remoteIds))
+                .rx()
+                .list();
     }
 
     private Single<List<RawMessage>> doSaveMessages(final List<RawMessage> rawMessages) {
