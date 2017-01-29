@@ -29,14 +29,6 @@ public class ChatBotJob extends Job {
         this.onNewMessageListener = onNewMessageListener;
     }
 
-    public static void schedule() {
-        new JobRequest.Builder(TAG)
-                .setPeriodic(TimeUnit.SECONDS.toMillis(60))
-                .setUpdateCurrent(true)
-                .build()
-                .schedule();
-    }
-
     public static void disable() {
         JobManager.instance().cancelAllForTag(TAG);
     }
@@ -56,6 +48,15 @@ public class ChatBotJob extends Job {
         fakeRemoteRepository.saveMessage(message)
                 .subscribe(onNewMessageListener::onNewMessage);
 
+        schedule();
         return Result.SUCCESS;
+    }
+
+    public static void schedule() {
+        new JobRequest.Builder(TAG)
+                .setExecutionWindow(TimeUnit.SECONDS.toMillis(5), TimeUnit.SECONDS.toMillis(10))
+                .setUpdateCurrent(true)
+                .build()
+                .schedule();
     }
 }

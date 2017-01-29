@@ -113,11 +113,19 @@ public class ChatMessagingActivity extends BaseActivity<ChatMessagingView, ChatM
         }
 
         chatMessagesAdapter.addMessage(message);
+
+        scrollToLast();
+    }
+
+    private void scrollToLast() {
+        binding.chatMessageList.scrollToPosition(chatMessagesAdapter.getItemCount() - 1);
     }
 
     @Override
     public void showMessages(List<Message> messages) {
         chatMessagesAdapter.setMessages(messages);
+
+        scrollToLast();
     }
 
     @Override
