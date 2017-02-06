@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.nomensvyat.offlinechat.model.entities.Room;
-import com.nomensvyat.offlinechat.ui.chat_messaging.ChatMessagingActivity;
+import com.nomensvyat.offlinechat.ui.chatmessaging.ChatMessagingActivity;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -12,7 +12,7 @@ import com.nomensvyat.offlinechat.R;
 import com.nomensvyat.offlinechat.model.entities.Room;
 import com.nomensvyat.offlinechat.model.entities.message.RawMessage;
 import com.nomensvyat.offlinechat.model.services.message.MessageService;
-import com.nomensvyat.offlinechat.ui.chat_messaging.ChatMessagingActivity;
+import com.nomensvyat.offlinechat.ui.chatmessaging.ChatMessagingActivity;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;

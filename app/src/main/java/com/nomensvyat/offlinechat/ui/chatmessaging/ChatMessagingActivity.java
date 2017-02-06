@@ -1,4 +1,4 @@
-package com.nomensvyat.offlinechat.ui.chat_messaging;
+package com.nomensvyat.offlinechat.ui.chatmessaging;
 
 import android.content.Context;
 import android.content.Intent;
