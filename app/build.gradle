@@ -1,8 +1,33 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+apply from: "dependencies.gradle"
+apply plugin: 'org.greenrobot.greendao'
+
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
+    }
+    // Exclude the version that the android plugin depends on. For lint with retrolambda
+    configurations.classpath.exclude group: 'com.android.tools.external.lombok'
+}
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         applicationId "com.nomensvyat.offlinechat"
         minSdkVersion 16
@@ -17,13 +42,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    testCompile 'junit:junit:4.12'
+    dataBinding {
+        enabled = true
+    }
+
+    greendao {
+        schemaVersion 1
+    }
 }

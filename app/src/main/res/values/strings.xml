@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Offline chat</string>
+    <string name="message_input_hint">Enter your message here</string>
+    <string name="date_format_only_date">%1$tb %1$td %1$tY</string>
+    <string name="date_format_only_time">%1$tH:%1$tM</string>
+    <string name="new_message_for_room">New message for %s</string>
+</resources>
